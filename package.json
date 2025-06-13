@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "scripts": {
     "prepare": "husky install",
-    "prettier": "prettier --write",
+    "prettier": "prettier \"src/**/*.{js,json,scss}\" --write --single-quote --trailing-comma all",
     "start": "nodemon --inspect src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "sass --watch src/resources/scss:src/public/css",
@@ -26,7 +26,10 @@
   "homepage": "https://github.com/PhanDat2004/nodejs_blog#readme",
   "description": "",
   "lint-staged": {
-    "src/**/*.{js,json,scss}": "prettier  --write --single-quote --trailing-comma all --tab-width 4"
+    "src/**/*.{js,json,scss}": [
+      "prettier --write --single-quote --trailing-comma all --tab-width 4",
+      "git add"
+    ]
   },
   "dependencies": {
     "express": "^5.1.0",
