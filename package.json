@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "prettier": "lint-staged",
+    "prepare": "husky install",
+    "prettier": "prettier --write",
     "start": "nodemon --inspect src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "sass --watch src/resources/scss:src/public/css",
@@ -26,11 +27,6 @@
   "description": "",
   "lint-staged": {
     "src/**/*.{js,json,scss}": "prettier  --write --single-quote --trailing-comma all --tab-width 4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "dependencies": {
     "express": "^5.1.0",
