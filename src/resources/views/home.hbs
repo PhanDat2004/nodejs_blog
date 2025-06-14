@@ -2,15 +2,17 @@
   <div class="row">
     {{#each courses}}
       <div class="col-sm-6 col-lg-4">
-        <div class="card card-course-item">
-          <img src={{this.image}} class="card-img-top" alt={{this.name}} />
-          <div class="card-body">
-            <h5 class="card-title">{{this.name}}</h5>
-            <p class="card-text">{{this.description}}</p>
-            <a href="#" class="btn btn-primary">Mua khoá học</a>
+        <a href="courses/{{this.slug}}" class="card-detail">
+          <div class="card card-course-item">
+            <img src={{this.image}} class="card-img-top" alt={{this.name}} />
+            <div class="card-body">
+              <h5 class="card-title">{{this.name}}</h5>
+              <p class="card-text">{{this.description}}</p>
+              <a href="#" class="btn btn-primary mt-2">Mua khoá học</a>
+            </div>
           </div>
-        </div>
-      </div>   
+        </a>
+      </div>
     {{/each}}
   </div>
 </div>
