@@ -13,6 +13,13 @@ db.connect();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('combined'));
 
+app.use(
+    express.urlencoded({
+        extended: true,
+    }),
+);
+app.use(express.json());
+
 const hbs = exphbs.create({
     extname: '.hbs',
     defaultLayout: 'main',
