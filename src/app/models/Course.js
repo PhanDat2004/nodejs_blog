@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-const slug = require('mongoose-slug-generator');
+const slugify = require('slugify');
 const Schema = mongoose.Schema;
-
-mongoose.plugin(slug);
 
 const Course = new Schema(
     {
@@ -10,11 +8,20 @@ const Course = new Schema(
         description: { type: String },
         image: { type: String },
         videoID: { type: String, required: true },
-        slug: { type: String, slug: 'name', unique: true },
+        slug: { type: String, unique: true },
+        level: { type: String },
     },
     {
         timestamps: true,
     },
 );
+
+// Tự động tạo slug trước khi lưu
+Course.pre('save', function (next) {
+    if (!this.slug && this.name) {
+        this.slug = slugify(this.name, { lower: true, strict: true });
+    }
+    next();
+});
 
 module.exports = mongoose.model('Course', Course);

@@ -22,12 +22,27 @@ class CourseController {
     store(req, res, next) {
         const formData = req.body;
         console.log(req.body);
-        formData.image = `https://i.ytimg.com/vi/${req.body.videoID}/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLA5JK2Hp3wdSVJg_GCcRsUQtrKHTw`;
+        formData.image = `https://i.ytimg.com/vi/${formData.videoID}/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLA5JK2Hp3wdSVJg_GCcRsUQtrKHTw`;
         const course = new Course(formData);
         course
             .save()
             .then(() => res.redirect('/'))
             .catch((error) => {});
+    }
+
+    // [GET] /course/:id/edit
+    edit(req, res, next) {
+        Course.findById(req.params.id)
+            .lean()
+            .then((course) => res.render('courses/edit', { course }))
+            .catch(next);
+    }
+
+    // [PUT] /course/:id
+    update(req, res, next) {
+        Course.updateOne({ _id: req.params.id }, req.body)
+            .then(() => res.redirect('/me/stored/courses'))
+            .catch(next);
     }
 }
 

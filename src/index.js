@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const morgan = require('morgan');
@@ -19,9 +20,13 @@ app.use(
     }),
 );
 app.use(express.json());
+app.use(methodOverride('_method'));
 
 const hbs = exphbs.create({
     extname: '.hbs',
+    helpers: {
+        sum: (a, b) => a + b,
+    },
     defaultLayout: 'main',
     layoutsDir: path.join(__dirname, 'resources', 'views', 'layouts'),
     partialsDir: path.join(__dirname, 'resources', 'views', 'partials'),
