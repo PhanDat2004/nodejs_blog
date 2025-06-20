@@ -3,7 +3,7 @@ const slugify = require('slugify');
 const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
-const Course = new Schema(
+const CourseSchema = new Schema(
     {
         name: { type: String, required: true },
         description: { type: String },
@@ -17,14 +17,27 @@ const Course = new Schema(
     },
 );
 
+// Custom query helper
+CourseSchema.query.sortable = function (req) {
+       if (Object.prototype.hasOwnProperty.call(req.query, '_sort')) {
+            return this.sort({
+                [req.query.column]: req.query.type,
+            });
+        }
+        return this;
+};
+
 // Tự động tạo slug trước khi lưu
-Course.pre('save', function (next) {
+CourseSchema.pre('save', function (next) {
     if (!this.slug && this.name) {
         this.slug = slugify(this.name, { lower: true, strict: true });
     }
     next();
 });
 
-Course.plugin(mongooseDelete, { overrideMethods: 'all', deletedAt: true });
+CourseSchema.plugin(mongooseDelete, {
+    overrideMethods: 'all',
+    deletedAt: true,
+});
 
-module.exports = mongoose.model('Course', Course);
+module.exports = mongoose.model('Course', CourseSchema);

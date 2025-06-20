@@ -27,30 +27,7 @@ app.use(SortMiddleware);
 
 const hbs = exphbs.create({
     extname: '.hbs',
-    helpers: {
-        sum: (a, b) => a + b,
-        sortable: (field, sort) => {
-            const sortType = field === sort.column ? sort.type : 'default';
-            const icons = {
-                default: 'fa-solid fa-sort',
-                asc: 'fa-solid fa-sort-up',
-                desc: 'fa-solid fa-sort-down',
-            };
-
-            const types = {
-                default: 'desc',
-                asc: 'desc',
-                desc: 'asc',
-            };
-
-            const icon = icons[sortType];
-            const type = types[sort.type];
-
-            return `<a href="?_sort&column=${field}&type=${type}">
-                        <i class="${icon}"></i>
-                    </a>`;
-        },
-    },
+    helpers: require('./helpers/handlebars'),
     defaultLayout: 'main',
     layoutsDir: path.join(__dirname, 'resources', 'views', 'layouts'),
     partialsDir: path.join(__dirname, 'resources', 'views', 'partials'),
