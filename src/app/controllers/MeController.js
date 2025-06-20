@@ -3,8 +3,17 @@ const Course = require('../models/Course');
 class MeController {
     // [GET] /me/stored/courses
     storedCourses(req, res, next) {
+        // res.json(res.locals._sort)
+        let courseQuery = Course.find({});
+
+        if (Object.prototype.hasOwnProperty.call(req.query, '_sort')) {
+            courseQuery = courseQuery.sort({
+                [req.query.column]: res.locals._sort.type,
+            });
+        }
+
         Promise.all([
-            Course.find({}).lean(),
+            courseQuery.lean(),
             Course.countDocumentsDeleted({ deletedAt: { $ne: null } }),
         ])
             .then(([courses, deletedCount]) => {
