@@ -20,14 +20,12 @@ class CourseController {
 
     // [POST] /courses/store
     store(req, res, next) {
-        const formData = req.body;
-        console.log(req.body);
-        formData.image = `https://i.ytimg.com/vi/${formData.videoID}/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLA5JK2Hp3wdSVJg_GCcRsUQtrKHTw`;
-        const course = new Course(formData);
+        req.body.image = `https://i.ytimg.com/vi/${req.body.videoID}/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLA5JK2Hp3wdSVJg_GCcRsUQtrKHTw`;
+        const course = new Course(req.body);
         course
             .save()
             .then(() => res.redirect('/'))
-            .catch((error) => {});
+            .catch(next);
     }
 
     // [GET] /courses/:id/edit
