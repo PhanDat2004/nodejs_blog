@@ -10,7 +10,7 @@
     <div class="mt-4 d-flex align-items-center">
       <div class="form-check">
         <input
-          class="form-check-input"
+          class="form-check-input select-all"
           type="checkbox"
           value=""
           id="checkbox-all"
@@ -19,7 +19,6 @@
           Chọn tất cả
         </label>
       </div>
-
       <select
         class="form-control checkbox-select-all-options"
         name="action"
@@ -28,9 +27,7 @@
         <option value="">-- Hành động --</option>
         <option value="delete">Xoá</option>
       </select>
-
-      <button class="btn btn-primary btn-sm check-all-submit-btn" disabled>Thực
-        hiện</button>
+      <button class="btn btn-primary btn-sm check-all-submit-btn" disabled>Thực hiện</button>
     </div>
   </div>
 
@@ -145,8 +142,7 @@
     let courseId;
     let checkboxAll = $('#checkbox-all');
     let checkAllSubmitBtn = $('.check-all-submit-btn');
-  //  let containerForm = document.forms['container-form'];
-    let containerForm = $('form[name="container-form"]')
+    let containerForm = $('form[name="container-form"]');
     let deleteForm = document.forms['delete-course-form'];
     let courseItemCheckbox = $('input[name="courseIds[]"]');
     let btnDeleteCourse = document.getElementById('btn-delete-course');
